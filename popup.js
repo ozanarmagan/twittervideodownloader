@@ -550,18 +550,6 @@ exports.SignatureMethod.registerMethodClass(["HMAC-SHA1", "HMAC-SHA1-Accessor"],
             return signature;
         }
     ));
-
-
-var chars_ = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-function noncey(length) {
-    var chars = chars_;
-    var result = "";
-    for (var i = 0; i < length; ++i) {
-        var rnum = Math.floor(Math.random() * chars.length);
-        result += chars.substring(rnum, rnum+1);
-    }
-    return result;
-}
 var rxlook = /^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/
 document.addEventListener('DOMContentLoaded',function(){
     chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
