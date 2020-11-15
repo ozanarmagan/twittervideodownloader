@@ -598,7 +598,6 @@ document.addEventListener('DOMContentLoaded',function(){
             var baseString = exports.SignatureMethod.getBaseString(message);
             var sig = exports.getParameter(message.parameters, "oauth_signature") + "=";
             var encodedSig = exports.percentEncode(sig);
-            console.log(encodedSig)
             $.ajax({
                 url: urlLink,
                 type: 'GET',
@@ -608,28 +607,22 @@ document.addEventListener('DOMContentLoaded',function(){
                 beforeSend: function(xhr){
                     xhr.setRequestHeader("Authorization",'OAuth oauth_consumer_key="'+oauth_consumer_key+'",oauth_signature_method="HMAC-SHA1",oauth_timestamp="' + timestamp + '",oauth_nonce="' + nonce + '",oauth_version="1.0",oauth_token="'+oauth_token+'",oauth_signature="' + encodedSig + '"');  
                },
-               success: function(data) { 
-                    
-                    console.log(data);
-                    tweet = data;
-                    
+               success: function(data) {                     
+                    tweet = data;                   
                     var maxbitrate = 0;
                     if(tweet.extended_entities != null)
                     {
                         tweet.extended_entities.media.forEach(element => {
-                            console.log(element)
                             if(element.type == "video")
                             {
                             isvideo = true;
                             element.video_info.variants.forEach(variant => {
-                                console.log(variant)
                                 if(variant.content_type == "video/mp4")
                                 {
                                     if(parseInt(variant.bitrate)>maxbitrate)
                                     {
                                         videourl=variant.url;
-                                        maxbitrate=variant.bitrate;
-                                        
+                                        maxbitrate=variant.bitrate;                                        
                                         document.getElementById("dwnbutton").innerHTML = "Download";
                                     }
                                 }
