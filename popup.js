@@ -552,7 +552,9 @@ exports.SignatureMethod.registerMethodClass(["HMAC-SHA1", "HMAC-SHA1-Accessor"],
     ));
 var rxlook = /^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/
 document.addEventListener('DOMContentLoaded',function(){
-    chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+  var links = document.getElementsByTagName("a");
+  links[0].onclick = function(){chrome.tabs.create({url:links[0].href})}  
+  chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
         currenturl = tabs[0].url;
         if(rxlook.test(currenturl) == true)
         {
